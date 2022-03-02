@@ -1,0 +1,41 @@
+# 2022/02 AMV
+#
+# Wiring:
+# No external components
+
+esphome:
+  name: entryway-sensor
+  platform: ESP32
+  board: nodemcu-32s
+
+wifi:
+  ssid: !secret ssid  
+  password: !secret wappw
+  ap:
+    ssid: entryway-sensor-fbhotspot
+    password: !secret hotspotpw  
+
+captive_portal:
+
+api:
+  password: !secret apipw
+
+logger:
+  
+ota:
+  password: !secret apipw
+
+esp32_ble_tracker:
+
+binary_sensor:
+  - platform: ble_presence
+    ibeacon_uuid: "97979a7a-56e3-46f6-8caf-5f680b2f474f"
+    name: "GoatPhone Present In Entryway"
+  - platform: ble_presence
+    ibeacon_uuid: "2e6cd66b-1d89-4722-af0d-459a4323e26d"
+    name: "AlphaPhone Present In Entryway"
+
+status_led:
+  pin:
+    inverted: False
+    number: GPIO2
